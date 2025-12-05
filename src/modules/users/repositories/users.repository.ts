@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { User } from '../entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { paginate, PaginationResult } from 'src/common/utils/pagination';
+import { paginate, PaginationResult } from  '../../../common/utils/pagination';
 
 
 @Injectable()

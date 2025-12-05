@@ -1,3 +1,4 @@
+import { Helpers } from  '../../../common/utils/helper';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -10,7 +11,7 @@ import {
 
 
 // import * as bcrypt from 'bcrypt';
-import { Helpers } from 'src/common/utils/helper';
+
 
 @Entity('users')
 export class User {
