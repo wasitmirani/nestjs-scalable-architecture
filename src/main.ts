@@ -1,10 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as Swagger from '@nestjs/swagger';
+import { APP_CONSTANTS } from './common/constants/app.constants';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.setGlobalPrefix('api');
+  app.setGlobalPrefix(`${APP_CONSTANTS.API_PREFIX}/${APP_CONSTANTS.API_VERSION}`);
 
   const config = new Swagger.DocumentBuilder()
     .setTitle('API Documentation')

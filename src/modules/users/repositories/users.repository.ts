@@ -14,16 +14,14 @@ export class UsersRepository  {
 
   async users(page: number, limit: number, params?: any): Promise<PaginationResult<User> | any[]> {
     const qb = this.userRepo.createQueryBuilder('users').select().orderBy('users.id', 'DESC');
-    console.log("Params in repo:",params);
+
     if (params?.email) {
       qb.where('users.email = :email', { email: params.email });
     }
-      // return paginate(qb, { page, limit, baseUrl: '/users' });
-      // .where('user.active = :active', { active: true })
-      console.log("Params in repo:",params);
-      if(params?.isPaginated == 0){
+    
+    if(params?.isPaginated == 0){
        return qb.getMany();
-      }
+    }
       // Apply pagination
     return paginate(qb, { page, limit, baseUrl: '/users' });
  
