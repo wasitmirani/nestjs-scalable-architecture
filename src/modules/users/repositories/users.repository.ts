@@ -1,31 +1,34 @@
 import { Injectable } from '@nestjs/common';
-import { BaseRepository } from '../../../common/base/base.repository';
+// import { BaseRepository } from '../../../common/base/base.repository';
 import { User } from '../entities/user.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { paginate, PaginationResult } from 'src/common/utils/pagination';
+
 
 @Injectable()
-export class UsersRepository extends BaseRepository<User> {
-  async create(data: any): Promise<User> {
-    // TODO: Implement database create
-    throw new Error('Method not implemented.');
+export class UsersRepository  {
+    constructor(@InjectRepository(User)private readonly userRepo: Repository<User>) {
+
+    }
+
+  async users(page: number, limit: number, params?: any): Promise<PaginationResult<User> | any[]> {
+    const qb = this.userRepo.createQueryBuilder('users').select().orderBy('users.id', 'DESC');
+    console.log("Params in repo:",params);
+    if (params?.email) {
+      qb.where('users.email = :email', { email: params.email });
+    }
+      // return paginate(qb, { page, limit, baseUrl: '/users' });
+      // .where('user.active = :active', { active: true })
+      console.log("Params in repo:",params);
+      if(params?.isPaginated == 0){
+       return qb.getMany();
+      }
+      // Apply pagination
+    return paginate(qb, { page, limit, baseUrl: '/users' });
+ 
   }
 
-  async findById(id: string | number): Promise<User | null> {
-    // TODO: Implement database findById
-    throw new Error('Method not implemented.');
-  }
 
-  async findAll(): Promise<User[]> {
-    // TODO: Implement database findAll
-    throw new Error('Method not implemented.');
-  }
-
-  async update(id: string | number, data: any): Promise<User> {
-    // TODO: Implement database update
-    throw new Error('Method not implemented.');
-  }
-
-  async delete(id: string | number): Promise<boolean> {
-    // TODO: Implement database delete
-    throw new Error('Method not implemented.');
-  }
+  
 }
