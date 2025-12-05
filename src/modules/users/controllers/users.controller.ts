@@ -17,11 +17,19 @@ export class UsersController {
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+    // return this.usersService.create(  );
   }
 
   @Get()
   findAll() {
+    return [{
+      id: 1,
+      email: 'john_doe@example.com',
+      username: 'john_doe',
+      password: 'hashed_password',
+      firstName: 'John',
+      lastName: 'Doe',
+    }];
     return this.usersService.findAll();
   }
 
