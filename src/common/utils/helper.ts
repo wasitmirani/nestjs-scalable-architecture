@@ -6,7 +6,15 @@ export class Helpers {
 
 
     static responseJson(res, statusCode: number = 200, message: string, data: any = {}){
-        return res.status(statusCode).json({
+        if(!res){
+            return {
+                message: message,
+                data: data,
+                
+                timestamp: new Date().toISOString()
+            };
+        } 
+      return res.status(statusCode).json({
             message: message,
             data: data,
             timestamp: new Date().toISOString()

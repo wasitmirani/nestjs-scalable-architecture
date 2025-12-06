@@ -34,15 +34,16 @@ export class UsersController {
   
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.usersService.findOne(id);
-  // }
+  @Get(':id')
+  async findOne(@Param('id') id: string, @Res() res ) {
+    const user =  await this.usersService.findById(id);   
+    return Helpers.responseJson(res,200,"User fetched successfully",{"user":user});
+  }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-  //   return this.usersService.update(id, updateUserDto);
-  // }
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+   return this.usersService.update(id, updateUserDto);
+  }
 
   // @Delete(':id')
   // remove(@Param('id') id: string) {

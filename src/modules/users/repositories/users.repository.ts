@@ -27,6 +27,19 @@ export class UsersRepository  {
  
   }
 
+   findById(id: string): Promise<User | null> { 
+    return  this.userRepo.createQueryBuilder('users')
+      .where('users.uuid = :uuid', { uuid: id })
+      .getOne();
+  }
+    async update(id: string, updatedUser: User): Promise<void> { 
+    await this.userRepo.createQueryBuilder()
+      .update(User)
+      .set(updatedUser)
+      .where('uuid = :uuid', { uuid: id })
+      .execute();
+     }
+
 
   
 }
